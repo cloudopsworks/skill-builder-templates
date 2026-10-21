@@ -74,9 +74,9 @@ These instructions apply to the repository root and all child paths.
 ## Release management
 
 - Can use a release workflow skill for streamlined release processes, but follow this repository's concrete policy over generic template heuristics.
-- Repositories generated from this template use the GitHubFlow-style GitVersion config in `.cloudopsworks/gitversion.yaml` (`main` / `release` / `feature` / `pull-request`, no `develop`).
+- Repositories generated from this template use the GitHubFlow-style GitVersion config in `.cloudopsworks/gitversion.yaml` (`main` / `release` / `feature` / `pull-request` / `hotfix`, no `develop`).
 - For generated repositories, branch release work from `main` using `feature/*`; do not default to `hotfix/*` or `fix/*` unless a repo-local rule explicitly requires it.
-- In this template's GitVersion config, `+semver: breaking` maps to a **MINOR** bump. Use `+semver: major` for a true MAJOR release.
+- In this template's GitVersion config, `+semver: breaking` and `+semver: major` both map to a **MAJOR** bump. Use `+semver: minor` or `+semver: feature` for a MINOR release.
 - Verify the canonical `# Agents: WayOfWork=githubflow` selector before branch operations. Missing, unsupported, or contradictory metadata is a blocker.
 - Start work with `tronador versions feature start "<slug>"`. This command is WayOfWork-aware: GitFlow bases from `develop`; GitHubFlow and trunk-based flows use the configured primary branch.
 - Generate `.cloudopsworks/_VERSION` only after `cw-release` verifies GitHub-template authority or the bounded canonical skills source-owner exception (trusted repository identity, known template status, regular non-symlink `.cloudopsworks/.skills`, supported selector, and corroborating source policy). When authorized, run `tronador project version --generate --yes`, then review, stage, commit, and submit the file through the normal PR flow. Generation changes only the file; it does not commit, tag, push, or publish. Marker presence or inherited prose alone never grants authority.
